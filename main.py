@@ -48,6 +48,8 @@ def read_file_content(file):
 def main():
     st.title("GPT Information Extractor")
     st.markdown("<small>made by MAITEC.Lab</small>", unsafe_allow_html=True)
+    popup2 = Popup("사용 설명", "오류나 문의사항은 MAITEC.Lab@gmail.com 으로 보내주시면 감사하겠습니다.", image="GPT_Information_Extractor_설명.png")
+    popup2.render()
     
     api_key = st.text_input("Enter GPT API Key (https://platform.openai.com/api-keys)", type="password")
     #model_name = st.selectbox("Select GPT Model", ["gpt-3.5-turbo", "gpt-4", "gpt-4-32k"])
