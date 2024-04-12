@@ -47,6 +47,7 @@ def read_file_content(file):
 
 def main():
     st.title("GPT Information Extractor")
+    st.markdown("<small>made by MAITEC.Lab</small>", unsafe_allow_html=True)
     
     api_key = st.text_input("Enter GPT API Key (https://platform.openai.com/api-keys)", type="password")
     #model_name = st.selectbox("Select GPT Model", ["gpt-3.5-turbo", "gpt-4", "gpt-4-32k"])
