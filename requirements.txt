@@ -1,0 +1,6 @@
+pandas
+streamlit
+python-docx
+langchain
+openai
+tenacity
