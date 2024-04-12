@@ -127,6 +127,8 @@ def main():
             total_requests = len(extracted_data)
             progress_bar = st.progress(0)
 
+            start_time = datetime.now()
+
             responses = []
             for i, data in enumerate(extracted_data):
                 try:
@@ -144,6 +146,9 @@ def main():
             # 진행바 완료
             progress_bar.empty()
 
+            end_time = datetime.now()  # 끝 시간 기록
+            elapsed_time = end_time - start_time  # 걸린 시간 계산
+            
             #responses = gpt_api.send_requests(extracted_data, response_schemas)
 
             excel_generator = ExcelGenerator(responses, id_column)
@@ -159,6 +164,8 @@ def main():
                 file_name=output_file_name,
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
+
+            st.success(f"작업이 완료되었습니다. 파일은 다운로드하시기 바랍니다. 걸린 시간: {elapsed_time}") 
         else:
             st.warning("Please provide all the required inputs.")
 
