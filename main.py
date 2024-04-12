@@ -156,7 +156,7 @@ def main():
             
             # Generate the output file name
             current_datetime = datetime.now().strftime("%Y%m%d%H%M%S")
-            output_file_name = f"{os.path.splitext(data_file.name)[0]}_GPT_responses_{current_datetime}.xlsx"
+            output_file_name = f"{os.path.splitext(data_file.name)[0]}_{model_name}_responses_{current_datetime}.xlsx"
             
             st.download_button(
                 label="Download Output Excel",
