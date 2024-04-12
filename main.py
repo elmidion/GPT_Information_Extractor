@@ -165,7 +165,7 @@ def main():
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
 
-            st.success(f"작업이 완료되었습니다. 파일은 다운로드하시기 바랍니다. 걸린 시간: {elapsed_time}") 
+            st.success(f"작업이 완료되었습니다. 위 버튼을 눌러 결과파일을 다운로드하시기 바랍니다. 걸린 시간: {elapsed_time}") 
         else:
             st.warning("Please provide all the required inputs.")
 
