@@ -33,21 +33,35 @@ class GPTApi:
         self.llm = ChatOpenAI(openai_api_key=api_key, model_name=model_name, temperature=0.0)
 
     #@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=60))
-    def send_request(self, data, output_format_prompt):
-               
-        response_schemas = parse_output_format(output_format_prompt)
-        output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
+    def send_request(self, data, output_format_prompt=None):
+        if output_format_prompt is not None:
+            response_schemas = parse_output_format(output_format_prompt)
+            output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
 
-        prompt = ChatPromptTemplate.from_messages([
-            HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}\n\nOutput Format:\n{output_format_prompt}\nThe output must be in JSON format.")
-            ])
-        
-        chain = LLMChain(llm=self.llm, prompt=prompt, output_parser=output_parser)        
+            prompt = ChatPromptTemplate.from_messages([
+                HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}\n\nOutput Format:\n{output_format_prompt}\nThe output must be in JSON format.")
+                ])
+            
+            chain = LLMChain(llm=self.llm, prompt=prompt, output_parser=output_parser)        
 
-        response = chain.run({
-                "instruction_prompt": data["instruction_prompt"],
-                "input_data": data["input_data"],
-                "output_format_prompt": data["output_format_prompt"]
-            })
+            response = chain.run({
+                    "instruction_prompt": data["instruction_prompt"],
+                    "input_data": data["input_data"],
+                    "output_format_prompt": data["output_format_prompt"]
+                })
+            return response
+            
+        else:
+            prompt = ChatPromptTemplate.from_messages([
+                HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}")
+                ])            
+            chain = LLMChain(llm=self.llm, prompt=prompt)        
+            response = chain.run({
+                    "instruction_prompt": data["instruction_prompt"],
+                    "input_data": data["input_data"],                    
+                })
+            response_return = {}
+            response_return['response'] = response
 
-        return response
+            return response_return
+
