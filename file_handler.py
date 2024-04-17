@@ -9,7 +9,7 @@ class FileHandler:
         return list(data_df.columns)
     
     def extract_data(self, id_column, input_column, instruction_prompt, output_format_prompt):
-        data_df = pd.read_excel(self.data_file)
+        data_df = pd.read_excel(self.data_file, engine='openpyxl')
         
         extracted_data = []
         for _, row in data_df.iterrows():
