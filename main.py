@@ -94,6 +94,8 @@ def main():
         # Display the parsed response schemas as a table
         st.subheader("Parsed Output Format")
         st.table(df)
+    else:
+        output_format_prompt = None
 
     data_file = st.file_uploader("Upload Data Excel File (.xlsx)")    
     if data_file is not None:
@@ -115,7 +117,7 @@ def main():
         input_column = st.selectbox("Select Input Data Column (정보 추출할 컬럼 - 현재 한 컬럼만 가능)", [""])
     
     if st.button("Submit"):
-        if api_key and instruction_file and output_format_file and data_file and id_column and input_column:
+        if api_key and instruction_file and data_file and id_column and input_column:
             instruction_prompt = read_file_content(instruction_file)
             #output_format_prompt = read_file_content(output_format_file)
             
