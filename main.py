@@ -133,7 +133,8 @@ def main():
             for i, data in enumerate(extracted_data):
                 try:
                     response = gpt_api.send_request(data, output_format_prompt)
-                except:
+                except Exception as e:
+                    print(e)
                     response = {}
                 responses.append({
                     "id": data["id"],
