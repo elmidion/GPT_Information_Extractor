@@ -154,6 +154,8 @@ def main():
             
             #responses = gpt_api.send_requests(extracted_data, response_schemas)
 
+            print("GPT응답샘플: ", responses[0])
+            
             excel_generator = ExcelGenerator(responses, id_column)
             output_file = excel_generator.generate_excel()
             
