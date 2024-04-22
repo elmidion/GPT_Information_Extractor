@@ -136,7 +136,8 @@ def main():
                 try:
                     response = gpt_api.send_request(data, output_format_prompt)
                 except Exception as e:
-                    print(e)
+                    #print(e)
+                    st.error(e)
                     response = {}
                 responses.append({
                     "id": data["id"],
