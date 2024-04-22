@@ -34,34 +34,36 @@ class GPTApi:
 
     #@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=60))
     def send_request(self, data, output_format_prompt=None):
-        if output_format_prompt is not None:
-            response_schemas = parse_output_format(output_format_prompt)
-            output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
-
-            prompt = ChatPromptTemplate.from_messages([
-                HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}\n\nOutput Format:\n{output_format_prompt}\nThe output must be in JSON format.")
-                ])
-            
-            chain = LLMChain(llm=self.llm, prompt=prompt, output_parser=output_parser)        
-
-            response = chain.run({
-                    "instruction_prompt": data["instruction_prompt"],
-                    "input_data": data["input_data"],
-                    "output_format_prompt": data["output_format_prompt"]
-                })
-            return response
-            
-        else:
-            prompt = ChatPromptTemplate.from_messages([
-                HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}")
-                ])            
-            chain = LLMChain(llm=self.llm, prompt=prompt)        
-            response = chain.run({
-                    "instruction_prompt": data["instruction_prompt"],
-                    "input_data": data["input_data"],                    
-                })
-            response_return = {}
-            response_return['response'] = response
-
-            return response_return
-
+        try:
+            if output_format_prompt is not None:
+                response_schemas = parse_output_format(output_format_prompt)
+                output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
+    
+                prompt = ChatPromptTemplate.from_messages([
+                    HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}\n\nOutput Format:\n{output_format_prompt}\nThe output must be in JSON format.")
+                    ])
+                
+                chain = LLMChain(llm=self.llm, prompt=prompt, output_parser=output_parser)        
+    
+                response = chain.run({
+                        "instruction_prompt": data["instruction_prompt"],
+                        "input_data": data["input_data"],
+                        "output_format_prompt": data["output_format_prompt"]
+                    })
+                return response
+                
+            else:
+                prompt = ChatPromptTemplate.from_messages([
+                    HumanMessagePromptTemplate.from_template("{instruction_prompt}\n\n{input_data}")
+                    ])            
+                chain = LLMChain(llm=self.llm, prompt=prompt)        
+                response = chain.run({
+                        "instruction_prompt": data["instruction_prompt"],
+                        "input_data": data["input_data"],                    
+                    })
+                response_return = {}
+                response_return['response'] = response
+    
+                return response_return
+        except Exception as e:
+            st.error(f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}', icon="🚨")
