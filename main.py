@@ -133,8 +133,10 @@ def main():
 
             responses = []
             for i, data in enumerate(extracted_data):
-                try:
+                try:                    
                     response = gpt_api.send_request(data, output_format_prompt)
+                    if "error" in response:
+                        st.error(response["error"], icon="🚨")                        
                 except Exception as e:
                     #print(e)
                     st.error(f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}', icon="🚨")
