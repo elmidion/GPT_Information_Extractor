@@ -66,5 +66,5 @@ class GPTApi:
     
                 return response_return
         except Exception as e:
-            response_return['error'] = f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}'
+            response_return={"error": f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}'}
             return response_return
