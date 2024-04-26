@@ -32,7 +32,7 @@ class GPTApi:
     def __init__(self, api_key, model_name):
         self.llm = ChatOpenAI(openai_api_key=api_key, model_name=model_name, temperature=0.0)
 
-    #@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=60))
+    @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=1, max=60))
     def send_request(self, data, output_format_prompt=None):
         try:
             if output_format_prompt is not None:
@@ -66,5 +66,5 @@ class GPTApi:
     
                 return response_return
         except Exception as e:
-            response_return={"error": f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}'}
+            response_return = {"error": f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}'}
             return response_return
