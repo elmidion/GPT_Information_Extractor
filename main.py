@@ -45,6 +45,12 @@ def read_file_content(file):
         st.warning(f"Unsupported file format: {file_extension}. Please upload a .docx or .txt file.")
         return ""
 
+@st.cache(allow_output_mutation=True, suppress_st_warning=True)
+def load_model_and_data(api_key, model_name, data_file):
+    gpt_api = GPTApi(api_key, model_name)
+    file_handler = FileHandler(data_file)
+    return gpt_api, file_handler
+
 def main():
     st.title("GPT Information Extractor")
     st.markdown("<small>made by MAITEC.Lab</small>", unsafe_allow_html=True)
@@ -120,6 +126,9 @@ def main():
         if api_key and instruction_file and data_file and id_column and input_column:
             instruction_prompt = read_file_content(instruction_file)
             #output_format_prompt = read_file_content(output_format_file)
+
+            # 모델과 데이터 로드
+            gpt_api, file_handler = load_model_and_data(api_key, model_name, data_file)
             
             extracted_data = file_handler.extract_data(id_column, input_column, instruction_prompt, output_format_prompt)
             
