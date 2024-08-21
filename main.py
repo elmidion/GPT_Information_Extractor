@@ -57,9 +57,8 @@ def main():
     popup2 = Popup("사용 설명", "오류나 문의사항은 MAITEC.Lab@gmail.com 으로 보내주시면 감사하겠습니다.", image="GPT_Information_Extractor_설명.png")
     popup2.render()
     
-    api_key = st.text_input("Enter GPT API Key (https://platform.openai.com/api-keys)", type="password")
-    #model_name = st.selectbox("Select GPT Model", ["gpt-3.5-turbo", "gpt-4", "gpt-4-32k"])
-    model_name = st.selectbox("Select GPT Model", ["gpt-3.5-turbo", "gpt-4"])
+    api_key = st.text_input("Enter GPT API Key (https://platform.openai.com/api-keys)", type="password")    
+    model_name = st.selectbox("Select GPT Model", ["gpt-3.5-turbo", "gpt-4", "gpt-4o"])
     instruction_file = st.file_uploader("Upload Instruction Prompt File (.docx)")    
     
     output_format_file = st.file_uploader("Upload Output Format Prompt File (.docx)")
