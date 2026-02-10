@@ -1,8 +1,13 @@
 from langchain_openai import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
-from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from langchain_core.output_parsers import ResponseSchema, StructuredOutputParser
 from langchain.chains import LLMChain
 from tenacity import retry, stop_after_attempt, wait_exponential
+
+# from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+# from langchain.output_parsers import ResponseSchema, StructuredOutputParser
+# from langchain.chains import LLMChain
+# from tenacity import retry, stop_after_attempt, wait_exponential
     
 def parse_output_format(output_format_prompt):
     response_schemas = []
@@ -68,4 +73,5 @@ class GPTApi:
         except Exception as e:
             response_return = {"error": f'에러가 발생했습니다. Maitec.Lab@gmail.com으로 문의하여 주시기 바랍니다. 에러 내용: {e}'}
             return response_return
+
 
