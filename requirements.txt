@@ -5,4 +5,5 @@ langchain
 openai
 tenacity
 openpyxl
+langchain_openai
 langchain-community
